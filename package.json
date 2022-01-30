@@ -1,0 +1,26 @@
+{
+  "name": "showfinder",
+  "version": "1.0.0",
+  "description": "spotify and ticketmaster api integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild client/src/app.jsx --bundle --outfile=client/dist/out.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JackMDowling/showfinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JackMDowling/showfinder/issues"
+  },
+  "homepage": "https://github.com/JackMDowling/showfinder#readme",
+  "dependencies": {
+    "esbuild": "^0.14.14",
+    "express": "^4.17.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
