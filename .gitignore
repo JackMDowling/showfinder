@@ -5,4 +5,4 @@ client/dist/bundle.js
 package-lock.json
 .env
 backend/config/keys.js
-client/dist/out.js
+client/dist/bundle.js.LICENSE.txt
