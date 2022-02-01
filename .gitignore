@@ -6,3 +6,4 @@ package-lock.json
 .env
 backend/config/keys.js
 client/dist/bundle.js.LICENSE.txt
+config.js
