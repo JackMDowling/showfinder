@@ -12,7 +12,7 @@ export const App = function () {
 
     return (
         <div className="app">
-            <h1>Placeholder</h1>
+              <a href="/login" className="login-btn">Log in with Spotify</a>
         </div>
     )
 
