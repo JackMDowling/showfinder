@@ -5,7 +5,7 @@ const DIST_DIR = path.join(__dirname, "/client/dist");
 
 module.exports = {
   mode: "production",
-  entry: `${SRC_DIR}/index.jsx`,
+  entry: `${SRC_DIR}/index.js`,
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".css", ".scss"],
     modules: ["src", "node_modules"], // Assuming that your files are inside the src dir
