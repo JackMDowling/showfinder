@@ -22,7 +22,7 @@ const generateRandomString = function (length) {
 const { client_id } = require("../config");
 const spotify_url = " https://accounts.spotify.com/authorize?";
 const redirect_url = "http://localhost:3113";
-const scopes = "user-follow-read";
+const scopes = "user-follow-read user-top-read";
 
 app.get("/login", (req, res) => {
   var state = generateRandomString(16);
