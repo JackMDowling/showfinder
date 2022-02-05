@@ -16,16 +16,12 @@ const getParamsFromSpotify = (hash) => {
 
 export const App = function () {
     const [token, setToken] = useState('')
-    const [artists, setArtists] = useState([])
+    const [followedArtists, setFollowedArtists] = useState()
 
    useEffect( () => {
         if(window.location.hash) {
-        const { access_token, 
-        expires_in,
-        token_type
-        } = getParamsFromSpotify(window.location.hash)
+        const { access_token } = getParamsFromSpotify(window.location.hash)
         setToken(access_token)
-           
         }
     }, [])
 
@@ -41,16 +37,19 @@ export const App = function () {
             
             const { artists } = data
             const { items } = artists
+            const store = [];
             if(items) {
-                const store = [];
                 for (let i = 0; i < items.length; i ++) {
                     store.push(items[i].name)
                 }
-                setArtists(store)
-                console.log(store)
                 
             }
-    }
+            if (store.length > 1) {
+                setFollowedArtists(store)
+                console.log('this is the store', store)
+            }
+        }
+        console.log('this is the artists state', followedArtists)
         
         
             return (
