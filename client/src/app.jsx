@@ -1,14 +1,32 @@
 import * as React from 'react'
 
-/*
-const client_id = //my client id
-const spotify_url = // spotify auth link
-const redirect_url = // my localhost
-const scopes = // the data I want to get back from spotify
-*/
+
+const getParamsFromSpotify = (hash) => {
+    const stringAfterHash = hash.substring(1);
+    const paramsInURL = stringAfterHash.split('&');
+    const paramsSplit = paramsInURL.reduce((accumulator, current) => {
+        const [key, value] = current.split('=');
+        accumulator[key] = value;
+        return accumulator
+    }, {})
+    return paramsSplit
+}
 
 export const App = function () {
 
+    React.useEffect(() => {
+        if(window.location.hash) {
+        const { access_token, 
+        expires_in,
+        token_type
+        } = getParamsFromSpotify(window.location.hash)
+            console.log(access_token)
+            localStorage.clear();
+            localStorage.setItem("accessToken", access_token);
+            localStorage.setItem("tokenType", token_type);
+            localStorage.setItem('expiresIn', expires_in)
+        }
+    })
 
     return (
         <div className="app">
