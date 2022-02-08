@@ -65,9 +65,10 @@ export const App = function () {
                 }
             }
         }
-    const findShows = () => {
-        console.log('hey look I am finding shows')
-        console.log(ticket_id)
+    const findShows = async () => {
+
+        const { data } = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?size=10&countryCode=US&apikey=${ticket_id}`)
+        console.log(data)
     }
 
         // just tracking the data here
