@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import regeneratorRuntime from "regenerator-runtime";
+const { ticket_id } = require("../../config");
+import "./styles.css"
 
 
 const getParamsFromSpotify = (hash) => {
@@ -18,6 +20,7 @@ const getParamsFromSpotify = (hash) => {
 export const App = function () {
     const [token, setToken] = useState('')
     const [followedArtists, setFollowedArtists] = useState()
+    const [enableTicket, setTicket] = useState(false)
 
    useEffect( () => {
         if(window.location.hash) {
@@ -35,34 +38,48 @@ export const App = function () {
                     'Authorization': authString
                 }
             });
-            const { artists } = data
-            const { items } = artists
-            const store = [];
-            if(items) {
-                for (let i = 0; i < items.length; i ++) {
-                    store.push(items[i].name)
-                }
-                
-            }
-            if (store.length > 1) {
-                setFollowedArtists(store)
-                console.log('this is the store', store)
-            }
-            const topArtists = await axios.get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5', {
+            const topData = await axios.get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': authString
-            }});
-            console.log('top here', topArtists)
+                }});
+            // destructuring the data from the 2 get requests
+            const { artists } = data
+            const { items } = artists
+            const store = [];
+            const topArtists = topData.data.items
+            // these if statesments are nullguards, might not be needed, test later
+            if(items && topArtists.length) {
+                for (let i = 0; i < items.length; i ++) {
+                    store.push(items[i].name)
+                }
+                for (let j = 0; j < topArtists.length; j++) {
+                    store.push(topArtists[j].name)
+                }
+                let uniqueStore = ([...new Set(store)])
+                // see last comment visa vi null guards
+                if (uniqueStore.length > 1) {
+                    setFollowedArtists(uniqueStore)
+                    setTicket(true)
+                }
+            }
         }
+    const findShows = () => {
+        console.log('hey look I am finding shows')
+        console.log(ticket_id)
+    }
+
+        // just tracking the data here
         console.log('this is the artists state', followedArtists)
         
         
             return (
                 <div className="app">
+                      <a href="/">Home</a><br></br>
                       <a href="/login" className="login-btn">Log in with Spotify</a><br></br>
                       <button onClick={findArtists}>Find Artists</button>
+                      <button className={enableTicket ? "ticket" : "hide"} onClick={findShows}>Find Shows</button>
                 </div>
             )
     }

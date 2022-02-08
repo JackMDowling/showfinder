@@ -2,9 +2,10 @@ const express = require("express");
 const path = require("path");
 const querystring = require("querystring");
 require("dotenv").config();
+const { client_id } = require("../config");
 
-const app = express();
 // instantiate app
+const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
@@ -19,8 +20,7 @@ const generateRandomString = function (length) {
   return text;
 };
 
-const { client_id } = require("../config");
-const spotify_url = " https://accounts.spotify.com/authorize?";
+// const spotify_url = " https://accounts.spotify.com/authorize?";
 const redirect_url = "http://localhost:3113";
 const scopes = "user-follow-read user-top-read";
 
