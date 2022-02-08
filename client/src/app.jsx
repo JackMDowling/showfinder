@@ -4,6 +4,7 @@ import regeneratorRuntime from "regenerator-runtime";
 
 
 const getParamsFromSpotify = (hash) => {
+    // Parses out the auth token that is returned by logging into spotify
     const stringAfterHash = hash.substring(1);
     const paramsInURL = stringAfterHash.split('&');
     const paramsSplit = paramsInURL.reduce((accumulator, current) => {
@@ -34,7 +35,6 @@ export const App = function () {
                     'Authorization': authString
                 }
             });
-            
             const { artists } = data
             const { items } = artists
             const store = [];
@@ -48,6 +48,13 @@ export const App = function () {
                 setFollowedArtists(store)
                 console.log('this is the store', store)
             }
+            const topArtists = await axios.get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10&offset=5', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': authString
+            }});
+            console.log('top here', topArtists)
         }
         console.log('this is the artists state', followedArtists)
         
